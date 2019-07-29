@@ -1,0 +1,15 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:11.4
+    restart: always
+  rails:
+    build: .
+    restart: always
+    command: ["sh", "-c", "rails db:create; rails s -b '0.0.0.0'"]
+    environment:
+      - RAILS_ENV=development
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
